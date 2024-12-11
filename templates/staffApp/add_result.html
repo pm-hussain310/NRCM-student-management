@@ -1,0 +1,80 @@
+{%extends 'studentmanagementApp/base.html'%}
+{%block content%}
+<br><br>
+{%include 'studentmanagementApp/messages.html'%}
+
+{%if action is None%}
+    <form action="?action=add_result" method="post">{%csrf_token%}
+      <div class="container">
+        <h2 style="color:blue;">Add Result</h2>
+        <hr>
+        <label for="course_id"><h5>Course</h5></label>
+        <select name="course_id" id="course_id"  width="50%">
+          {%for course in courses%}
+          <option value="{{course.id}}">{{course}}</option>
+          {%endfor%}
+        </select>  &nbsp&nbsp&nbsp&nbsp&nbsp
+
+        <label for="session_year_id"> <h5>Session Year</h5></label>
+        <select name="session_year_id" id="session_year_id">
+          {%for session_year in session_years%}
+          <option value="{{session_year.id}}">{{session_year}}</option>
+          {%endfor%}
+        </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+        <label for="subject_id"><h5>Subject</h5></label>
+        <select name="subject_id" id="subject_id"  width="50%">
+          {%for subject in subjects%}
+          <option value="{{subject.id}}">{{subject.name}}</option>
+          {%endfor%}
+        </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <button type="submit" class="btn btn-primary" style="float: right;">Fetch Students</button>
+    <hr>
+    </form>
+{%else%}
+<form action="{%url 'add_result'%}" method="post">{%csrf_token%}
+  <div class="container">
+    <h2 style="color:blue;">Add Result</h2>
+    <hr>
+
+    <label for="course_id"><h5>Course</h5></label>
+    <select name="course_id" id="course_id"  width="50%">
+      <option value="{{get_course.id}}">{{get_course}}</option>
+    </select>  &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <label for="session_year_id"> <h5>Session Year</h5></label>
+    <select name="session_year_id" id="session_year_id">
+      <option value="{{get_session_year.id}}">{{get_session_year}}</option>
+    </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <label for="subject_id"><h5>Subject</h5></label>
+    <select name="subject_id" id="subject_id"  width="50%">
+      <option value="{{get_subject.id}}">{{get_subject}}</option>
+    </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <br>
+    <label for="student_id"><h5>Select Student</h5></label>
+    <select name="student_id" id="student_id"  width="50%">
+      {%for student in students%}
+      <option value="{{student.id}}">{{student.admin.first_name}} {{student.admin.last_name}}</option>
+      {%endfor%}
+    </select> &nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <br>
+    <label for="quiz_marks"><h5>Quiz Marks  </h5></label>
+    <input id='quiz_marks' type="number" name="quiz_marks" value="" id="quiz_marks"  placeholder="Enter Quiz Marks" min="0" max="30" required>
+    &nbsp&nbsp&nbsp&nbsp&nbsp
+    <label for="exam_marks"><h5>Exam Marks  </h5></label>
+    <input id='exam_marks' type="number" name="exam_marks" value="" id="exam_marks"  placeholder="Enter Exam Marks" min="0" max="70" required>
+
+    <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+
+     <hr>
+</form>
+{%endif%}
+
+
+
+</div>
+{%endblock%}
